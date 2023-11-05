@@ -1,0 +1,13 @@
+.containerStyle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(70, 108, 179);
+    height: 100vh;
+}
+
+.formStyle{
+    padding: 2rem;
+    border-radius: 5%;
+    background-color: white;
+}
