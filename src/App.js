@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from '../src/Components/login/Login'
 import Admin from './Components/admin/Admin';
+import Dashboard from './Components/dashboard/Dashboard';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route exact path = '/login' element={<Login/>}/>
         <Route exact path = '/admin' element={<Admin/>}/>
+        <Route exact path='/dashboard' element={<Dashboard/>}/>
       </Routes>
     </Router>
   );

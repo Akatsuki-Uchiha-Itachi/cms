@@ -5,7 +5,7 @@ import './css/Admin.css'
 const Admin = () => {
     return (
        <div>
-        
+        hello
        </div>
     )
 }

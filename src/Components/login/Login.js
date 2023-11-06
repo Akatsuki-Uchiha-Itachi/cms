@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import './css/Login.css';
 import '../../firebaseconfig'
@@ -11,6 +11,7 @@ const Login = () => {
     const [error, setError] = useState(null);
 
     const auth = getAuth();
+    const navigate = useNavigate();
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid;
@@ -29,10 +30,16 @@ const Login = () => {
             signInWithEmailAndPassword(auth, email, password)
                 .then(() => {
                     console.log("you logged");
+                    navigate('/dashboard');
                    
                 })
                 .catch((error) => {
+                    if(error.code === 'auth/invalid-login-credentials'){
+                        setError("Invalid email or password.");
+                    }
+                    else{
                     console.log(error);
+                    }
                 });
         }
     };
@@ -45,11 +52,6 @@ const Login = () => {
     return (
         <div className="containerStyle">
             <form className="formStyle">
-                {error && (
-                    <div className="alert alert-danger" role="alert">
-                        {error}
-                    </div>
-                )}
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">
                         Email address
@@ -77,6 +79,11 @@ const Login = () => {
                 <button type="button" className="btn btn-primary" onClick={handleLogin}>
                     Login
                 </button>
+                {error && (
+                    <div className="alert alert-danger" role="alert">
+                        {error}
+                    </div>
+                )}
             </form>
         </div>
     );
