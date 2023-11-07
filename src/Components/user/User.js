@@ -1,10 +1,11 @@
 import React from 'react'
+import { FillComplaint } from './components/FillComplaint'
 
 const User = () => {
   return (
-    <div>
-      
-    </div>
+   <div>
+    <FillComplaint/>
+   </div>
   )
 }
 
