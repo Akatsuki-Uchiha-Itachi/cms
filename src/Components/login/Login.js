@@ -30,7 +30,7 @@ const Login = () => {
             signInWithEmailAndPassword(auth, email, password)
                 .then(() => {
                     console.log("you logged");
-                    navigate('/dashboard');
+                    navigate('/');
                    
                 })
                 .catch((error) => {

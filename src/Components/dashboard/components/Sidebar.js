@@ -1,9 +1,20 @@
 import React from 'react'
 import college_logo from '../../images/college_logo.png'
-import logout from '../../images/logout.svg'
+import logoutimg from '../../images/logout.svg'
+import {useNavigate} from 'react-router-dom'
 import '../css/dashboard.css'
+import { getAuth, signOut } from 'firebase/auth'
 
 const Sidebar = () => {
+  const navigator = useNavigate();
+  const logout = () =>{
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      navigator('/login');
+    }).catch((error)=>{
+      console.log("navigation error:" + error);
+    });
+  }
   return (
     <div className="left-section">
           <div className="logo-title">
@@ -18,9 +29,9 @@ const Sidebar = () => {
               {/* TODO: Add a scrollbar */}
             </div>
           </div>
-          <div className="logout">
+          <div className="logout" onClick={logout}>
             <span className='logout-title'>LOG OUT</span>
-            <img src={logout} alt="logout" className='logout-img'/>
+            <img src={logoutimg} alt="logout" className='logout-img'/>
           </div>
       </div>
   )
