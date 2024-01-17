@@ -1,34 +1,49 @@
 import React from 'react'
+import  {doc, setDoc} from "firebase/firestore" 
+import {db} from '../../../firebaseconfig';
 
 export const FillComplaint = () => {
+  const [title,setTitle] =React.useState('');
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      await setDoc(doc(db, 'complain', title), {
+        title: document.getElementById('title').value,
+        roomNumber: document.getElementById('roomNumber').value,
+        requestedBy: document.getElementById('requestedBy').value,
+        description: document.getElementById('description').value,
+      });
+    } catch (error) {
+      console.error("Error submitting complaint:", error);
+      
+    }
+  };
+  
+  
   return (
-    <div class="container mt-4">
-    <h2 class="text-center">Fill Your Complaint</h2>
-    <div class="card p-4 shadow">
+    <div className="container mt-4">
+    <h2 className="text-center">Fill Your Complaint</h2>
+    <div className="card p-4 shadow">
       <form>
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" class="form-control" id="title" placeholder="Enter the title"/>
+        <div className="form-group">
+          <label htmlFor="title">Title</label>
+          <input type="text" className="form-control" id="title" onChange={(e) => setTitle(e.target.value)} placeholder="Enter the title"/>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="roomNumber">Room Number</label>
-            <input type="number" class="form-control" id="roomNumber" placeholder="Enter room number"/>
+        <div className="form-row">
+          <div className="form-group col-md-6">
+            <label htmlFor="roomNumber">Room Number</label>
+            <input type="number" className="form-control" id="roomNumber" placeholder="Enter room number"/>
           </div>
-          <div class="form-group col-md-6">
-            <label for="requestedBy">Requested By</label>
-            <input type="text" class="form-control" id="requestedBy" placeholder="Enter the requester's name"/>
+          <div className="form-group col-md-6">
+            <label htmlFor="requestedBy">Requested By</label>
+            <input type="text" className="form-control" id="requestedBy" placeholder="Enter the requester's name"/>
           </div>
         </div>
-        <div class="form-group">
-          <label for="reportedBy">Reported By</label>
-          <input type="text" class="form-control" id="reportedBy" placeholder="Enter the reporter's name"/>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea className="form-control" id="description" rows="4" placeholder="Enter the complaint description"></textarea>
         </div>
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea class="form-control" id="description" rows="4" placeholder="Enter the complaint description"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" onClick={submit} className="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
