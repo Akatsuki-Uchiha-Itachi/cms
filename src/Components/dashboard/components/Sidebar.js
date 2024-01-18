@@ -2,8 +2,8 @@ import React from 'react'
 import college_logo from '../../images/college_logo.png'
 import logoutimg from '../../images/logout.svg'
 import {useNavigate} from 'react-router-dom'
-import '../css/dashboard.css'
 import { getAuth, signOut } from 'firebase/auth'
+import {getDoc} from 'firebase/firestore'
 
 const Sidebar = () => {
   const navigator = useNavigate();
@@ -14,6 +14,7 @@ const Sidebar = () => {
     }).catch((error)=>{
       console.log("navigation error:" + error);
     });
+    
   }
   return (
     <div className="left-section">
@@ -25,8 +26,10 @@ const Sidebar = () => {
             <div className="recent-complaints-title">
               Recent Complaints
             </div>
-            <div className="recent-complaints-scrollbar">
-              {/* TODO: Add a scrollbar */}
+            <div className="recent-complaints-scrollbar w-full">
+              <ul>
+                {/* {TODO: Make an array scrollbar} */}
+              </ul>
             </div>
           </div>
           <div className="logout" onClick={logout}>

@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import {auth} from '../../firebaseconfig'
 import Sidebar from './components/Sidebar';
 import Options from './components/Options'
+import {doc, getDoc } from 'firebase/firestore';
+import { db } from '../../firebaseconfig';
 
-import './css/dashboard.css'
+
 import Content from './components/Content';
 
 const Dashboard = () => {

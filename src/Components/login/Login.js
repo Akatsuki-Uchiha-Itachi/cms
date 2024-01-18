@@ -1,90 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import './css/Login.css';
 import '../../firebaseconfig'
 import Admin from '../admin/Admin';
+import './css/login.css'
+import logo from '../images/college_logo.png'
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-
-    const auth = getAuth();
-    const navigate = useNavigate();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const uid = user.uid;
-        } else {
-            // Handle the case where the user is not authenticated
-        }
-    });
-
-    const handleLogin = () => {
-        if (!isValidEmail(email)) {
-            setError('Invalid email format.');
-        } else if (email.trim() === '' || password.trim() === '') {
-            setError('Email and password are required.');
-        } else {
-            setError(null);
-            signInWithEmailAndPassword(auth, email, password)
-                .then(() => {
-                    console.log("you logged");
-                    navigate('/');
-                   
-                })
-                .catch((error) => {
-                    if(error.code === 'auth/invalid-login-credentials'){
-                        setError("Invalid email or password.");
-                    }
-                    else{
-                    console.log(error);
-                    }
-                });
-        }
-    };
-
-    const isValidEmail = (email) => {
-        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-        return emailRegex.test(email);
-    };
-
     return (
-        <div className="containerStyle">
-            <form className="formStyle">
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                        Email address
-                    </label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+        <div className="main  d-flex bg-primary vh-100  flex-column justify-content-center align-content-center">
+            <div className="maincontainer container shadow bg-light h-50 ">
+                <div className="logo container p-5 d-flex justify-content-center align-content-center">
+                    <img src={logo} className='logo' alt="college_logo" />
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                <div className="label ">
+                    <label>Complain Managment Portal</label>
                 </div>
-                <button type="button" className="btn btn-primary" onClick={handleLogin}>
-                    Login
-                </button>
-                {error && (
-                    <div className="alert alert-danger" role="alert">
-                        {error}
+                <div className="access-mode d-flex justify-content-between ">
+                    <div className="user">
+                        <button className="btn btn-dark">User Login</button>
                     </div>
-                )}
-            </form>
+                    <div className="admin">
+                        <button className="btn btn-dark">Admin Login</button>
+                    </div>
+                    <div className="worker">
+                        <button className="btn btn-dark">Worker Login</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
